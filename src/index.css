@@ -1,68 +1,142 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --color-primary: 59, 130, 246;
+  --color-secondary: 16, 185, 129;
+  --color-accent: 139, 92, 246;
+  --color-success: 34, 197, 94;
+  --color-warning: 234, 179, 8;
+  --color-error: 239, 68, 68;
+  --color-background: 255, 255, 255;
+  --color-text: 31, 41, 55;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+.dark {
+  --color-primary: 96, 165, 250;
+  --color-secondary: 20, 184, 166;
+  --color-accent: 167, 139, 250;
+  --color-success: 74, 222, 128;
+  --color-warning: 250, 204, 21;
+  --color-error: 248, 113, 113;
+  --color-background: 15, 23, 42;
+  --color-text: 241, 245, 249;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+@layer base {
+  body {
+    @apply bg-[rgb(var(--color-background))] text-[rgb(var(--color-text))] transition-colors duration-200;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
-  a:hover {
-    color: #747bff;
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-medium leading-tight;
   }
-  button {
-    background-color: #f9f9f9;
+
+  p, li, span {
+    @apply leading-relaxed;
   }
+}
+
+@layer components {
+  .btn {
+    @apply px-4 py-2 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+
+  .btn-primary {
+    @apply bg-[rgb(var(--color-primary))] text-white hover:bg-opacity-90 focus:ring-[rgb(var(--color-primary))];
+  }
+
+  .btn-secondary {
+    @apply bg-[rgb(var(--color-secondary))] text-white hover:bg-opacity-90 focus:ring-[rgb(var(--color-secondary))];
+  }
+
+  .btn-outline {
+    @apply border border-[rgb(var(--color-primary))] text-[rgb(var(--color-primary))] hover:bg-[rgb(var(--color-primary))] hover:bg-opacity-10 focus:ring-[rgb(var(--color-primary))];
+  }
+
+  .card {
+    @apply bg-white dark:bg-slate-800 rounded-xl shadow-md overflow-hidden transition-all duration-200 hover:shadow-lg;
+  }
+  
+  .noise-level {
+    @apply flex items-center space-x-1;
+  }
+  
+  .noise-bar {
+    @apply h-2 rounded-full bg-gray-200 dark:bg-gray-700;
+  }
+  
+  .noise-bar-active {
+    @apply bg-[rgb(var(--color-primary))];
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100 dark:bg-gray-800;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 dark:bg-gray-600 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-400 dark:bg-gray-500;
+}
+
+/* Animation for sound wave */
+@keyframes soundWave {
+  0% {
+    transform: scaleY(0.5);
+    opacity: 0.2;
+  }
+  50% {
+    transform: scaleY(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scaleY(0.5);
+    opacity: 0.2;
+  }
+}
+
+.sound-wave {
+  @apply flex items-end space-x-1;
+}
+
+.sound-wave-bar {
+  @apply w-1 bg-[rgb(var(--color-primary))];
+  animation: soundWave 1.5s infinite;
+}
+
+.sound-wave-bar:nth-child(1) {
+  animation-delay: 0s;
+  height: 12px;
+}
+
+.sound-wave-bar:nth-child(2) {
+  animation-delay: 0.2s;
+  height: 16px;
+}
+
+.sound-wave-bar:nth-child(3) {
+  animation-delay: 0.4s;
+  height: 24px;
+}
+
+.sound-wave-bar:nth-child(4) {
+  animation-delay: 0.6s;
+  height: 16px;
+}
+
+.sound-wave-bar:nth-child(5) {
+  animation-delay: 0.8s;
+  height: 12px;
 }
